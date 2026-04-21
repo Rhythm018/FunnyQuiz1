@@ -138,38 +138,57 @@
   </div>
 
   <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const popup = document.getElementById("popup");
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const popup = document.getElementById("popup");
 
-    // No button bhagna
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 250 - 125;
-      const y = Math.random() * 80 - 40;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
+  function moveNoButton() {
+    const x = Math.random() * 260 - 130;
+    const y = Math.random() * 100 - 50;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  }
 
-    // Yes click celebration
-    yesBtn.addEventListener("click", () => {
-      popup.style.display = "flex";
-      createConfetti();
-    });
+  /* Desktop hover */
+  noBtn.addEventListener("mouseover", moveNoButton);
 
-    function createConfetti() {
-      for (let i = 0; i < 80; i++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti";
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.background =
-          `hsl(${Math.random() * 360}, 100%, 50%)`;
-        confetti.style.animationDuration =
-          Math.random() * 2 + 2 + "s";
-        document.body.appendChild(confetti);
+  /* Mobile touch */
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // stop click
+    moveNoButton();
+  });
 
-        setTimeout(() => confetti.remove(), 3000);
-      }
+  noBtn.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    moveNoButton();
+  });
+
+  /* Extra safety: even click pe bhage */
+  noBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    moveNoButton();
+  });
+
+  /* Yes button */
+  yesBtn.addEventListener("click", () => {
+    popup.style.display = "flex";
+    createConfetti();
+  });
+
+  function createConfetti() {
+    for (let i = 0; i < 80; i++) {
+      const confetti = document.createElement("div");
+      confetti.className = "confetti";
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.background =
+        `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.animationDuration =
+        Math.random() * 2 + 2 + "s";
+      document.body.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), 3000);
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
